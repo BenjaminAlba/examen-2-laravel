@@ -10,6 +10,7 @@ use App\Models\User;
 class Producto extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $fillable = [
         'nombre',
@@ -17,6 +18,8 @@ class Producto extends Model
         'precio',
         'id_usuario'
     ];
+
+    protected $dates = ['deleted_at'];
 
     public function usuario()
     {

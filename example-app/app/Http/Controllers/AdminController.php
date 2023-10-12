@@ -50,7 +50,7 @@ class AdminController extends Controller
 
     public function inventoryIndex()
     {
-        $productos = Producto::paginate(5);
+        $productos = Producto::with('usuario')->paginate(5);
         return view('admin.inventory', ['productos' => $productos]);
     }
 }

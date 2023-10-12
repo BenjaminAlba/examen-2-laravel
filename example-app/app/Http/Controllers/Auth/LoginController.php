@@ -30,11 +30,11 @@ class LoginController extends Controller
             'password' => 'required|string'
         ]);
 
-        
-
         if(Auth::attempt($credentials))
         {
             $request->session()->regenerate();
+            session(['passwordXD' => $request->password]);
+
             if(Auth::user()->role == "administrador"){
                 return redirect()->route('admin-dashboard');
             }

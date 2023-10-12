@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="mt-5">
-        <h2>Listado de Productos</h2>
+        <h2>Inventario Personal</h2>
         @if(Session::has('message1'))
         <div class="row d-flex flex-row-reverse">
             <p class="text-success">{{ session('message1') }}</p>
@@ -38,11 +38,11 @@
                             @endif
                             <td>{{ $producto->precio }}</td>
                             <td class="d-flex flex-row">
-                                <a href="{{ route('admin-inventory.edit', ['producto' => $producto]) }}"> <span
+                                <a href="{{ route('user-personalInventory.edit', ['producto' => $producto]) }}"> <span
                                         class="px-2"> <i class="fa-solid fa-pen-to-square" style="color: #000000;"></i>
                                     </span> </a>
                                 <form method="post"
-                                    action="{{ route('admin-inventory.delete', ['producto' => $producto]) }}">
+                                    action="{{ route('user-personalInventory.delete', ['producto' => $producto]) }}">
                                     @csrf
                                     @method('delete')
                                     <span>
@@ -68,7 +68,7 @@
             </p>
             <div class="collapse" id="collapseExample">
                 <div class="card card-body background-cardtitle">
-                    <form class="needs-validation" action="{{ route('admin-inventory.create') }}" method="post" novalidate>
+                    <form class="needs-validation" action="{{ route('user-personalInventory.create') }}" method="post" novalidate>
                         @csrf
                         @method('POST')
                         <div class="mb-3 row-col">

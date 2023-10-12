@@ -4,62 +4,65 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Arr;
 
 class ProductoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function create(Request $request)
     {
-        //
+        $data = $request->validate([
+            'nombre' => 'required|string',
+            'cantidad' => 'nullable|numeric',
+            'precio' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
+        ]);
+        
+        $data['id_usuario'] = Auth::id();
+
+        if($request->input('precio') == null)
+        {
+            $dataPartial = Arr::except($data, 'precio');
+            Producto::create($dataPartial);
+        }
+        else
+            Producto::create($data);
+
+        return back()->with('message1', 'Producto añadido con éxito.');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function delete(Producto $producto)
     {
-        //
+        $producto->delete();
+        return back()->with('message2', 'Producto eliminado con éxito.');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Producto $producto)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Producto $producto)
     {
-        //
+        if(Auth::user()->role == "administrador")
+            return view('admin.editproduct', ['producto' => $producto]);
+        elseif(Auth::user()->role == "usuario")
+            return view('user.editproduct', ['producto' => $producto]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Producto $producto)
+    public function update(Producto $producto, Request $request)
     {
-        //
-    }
+        $data = $request->validate([
+            'nombre' => 'required|string',
+            'cantidad' => 'nullable|numeric',
+            'precio' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Producto $producto)
-    {
-        //
+        if($request->input('precio') == null)
+        {
+            $dataPartial = Arr::except($data, 'precio');
+            $producto->update($dataPartial);
+        }
+        else
+            $producto->update($data);
+
+        if(Auth::user()->role == "administrador")
+            return redirect()->route("admin-inventory");
+        else if(Auth::user()->role == "usuario")
+            return redirect()->route("user-personalInventory");
     }
 }

@@ -14,7 +14,7 @@
                             Revise el listado completo de productos en existencia.   
                         </div>
                         <div class="row d-flex flex-row-reverse">
-                            <a href="{{ route('admin-users') }}" class="col-3 btn btn-secondary"> Acceder </a>
+                            <a href="{{ route('user-globalInventory') }}" class="col-3 btn btn-secondary"> Acceder </a>
                         </div>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                             Revise su inventario, permite crear, editar y eliminar productos.
                         </div>
                         <div class="row d-flex flex-row-reverse">
-                            <a href="" class="col-3 btn btn-secondary"> Acceder </a>
+                            <a href="{{ route('user-personalInventory') }}" class="col-3 btn btn-secondary"> Acceder </a>
                         </div>
                     </div>
                 </div>

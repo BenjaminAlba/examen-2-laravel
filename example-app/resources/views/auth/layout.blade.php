@@ -23,14 +23,14 @@
                         <span> 
                             <i class="fa-solid fa-stapler"></i> 
                         </span> 
-                        Inventario
+                        Papelería
                     </a>
                 @elseif(auth()->user()->role == 'usuario')
                     <a class="navbar-brand font-primary fw-bold" href="{{ route('user-dashboard') }}"> 
                         <span> 
                             <i class="fa-solid fa-stapler"></i> 
                         </span> 
-                        Inventario
+                        Papelería
                     </a>
                 @endif
             @endauth
@@ -39,7 +39,7 @@
                     <span> 
                         <i class="fa-solid fa-stapler"></i> 
                     </span> 
-                    Inventario
+                    Papelería
                 </a>
             @endguest
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -54,9 +54,17 @@
                             <a class="nav-link font-primary fw-bold" href="{{ route('login') }}">Login</a>
                         </li>
                     @else
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Inventario</a>
-                        </li>
+                        @auth
+                            @if(auth()->user()->role == 'administrador')
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="{{ route('admin-inventory') }}">Inventario</a>
+                                </li>
+                            @elseif(auth()->user()->role == 'usuario')
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="{{ route('user-personalInventory') }}">Inventario</a>
+                                </li>
+                            @endif
+                        @endauth
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle font-primary fw-bold" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -66,7 +74,7 @@
                                 @auth
                                     @if(auth()->user()->role == 'usuario')
                                         <li>
-                                            <a href="" class="fw-bold dropdown-item font-primary">Cambiar Contraseña</a>
+                                            <a href="{{ route('user-credentials') }}" class="fw-bold dropdown-item font-primary">Cambiar Contraseña</a>
                                         </li>
                                     @endif
                                 @endauth

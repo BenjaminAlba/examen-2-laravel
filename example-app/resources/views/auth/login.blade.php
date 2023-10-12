@@ -8,7 +8,7 @@
                 <div class="card-body background-lighter">
                     <div class="row">
                         <div class="col-sm-12 col-md-6 col-lg-6">
-                            <img src="{{ asset('storage/img/logo.png') }}" class="img-fluid object-fit-scale" alt="logo">
+                            <img src="https://orangedog.co.nz/cdn/shop/products/Pens.png?v=1603335646" class="img-fluid object-fit-scale" alt="logo">
                         </div>
                         <div class="col-sm-12 col-md-6 col-lg-6 ">
                             @if(Session::has('message2'))

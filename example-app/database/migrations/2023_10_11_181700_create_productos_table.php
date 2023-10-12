@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->integer('cantidad')->nullable();
-            $table->float('precio')->defailt(0.0);
+            $table->float('precio')->default(0.0);
             $table->bigInteger('id_usuario')->unsigned();
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
